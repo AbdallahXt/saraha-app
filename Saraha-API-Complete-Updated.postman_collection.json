@@ -1,0 +1,213 @@
+{
+  "info": {
+    "_postman_id": "saraha-api-complete-002",
+    "name": "Saraha API - Complete (Updated)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Updated collection with new verification endpoint that returns tokens"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"test@email.com\",\n  \"password\": \"12345678\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "register"] }
+          }
+        },
+        {
+          "name": "Verify Account (NEW) - Get Tokens",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@email.com\",\n  \"otp\": \"123456\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/verify-account", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "verify-account"] }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@email.com\",\n  \"password\": \"12345678\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/login", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "login"] }
+          }
+        },
+        {
+          "name": "Forgot Password (Request OTP)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/forgot-password", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "forgot-password"] }
+          }
+        },
+        {
+          "name": "Reset Password with OTP",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"otp\": \"123456\",\n  \"newPassword\": \"newSecurePassword123\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/reset-password", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "reset-password"] }
+          }
+        },
+        {
+          "name": "Request Password Change OTP",
+          "request": {
+            "method": "POST",
+            "header": [ 
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" } 
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/request-password-change-otp", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "request-password-change-otp"] }
+          }
+        },
+        {
+          "name": "Change Password (Authenticated with OTP)",
+          "request": {
+            "method": "POST",
+            "header": [ 
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" } 
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"currentPassword123\",\n  \"newPassword\": \"newSecurePassword123\",\n  \"otp\": \"123456\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/change-password", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "change-password"] }
+          }
+        },
+        {
+          "name": "Resend OTP",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/resend-otp", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "resend-otp"] }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/refresh-token", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "refresh-token"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Profile",
+      "item": [
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{access_token}}" } ],
+            "url": { "raw": "http://localhost:5000/api/user/me", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "user", "me"] }
+          }
+        },
+        {
+          "name": "Update Profile Only",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Authorization", "value": "Bearer {{access_token}}" }, { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"newusername\",\n  \"avatar\": \"https://image.url\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/user/me", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "user", "me"] }
+          }
+        },
+        {
+          "name": "Upload Profile Picture",
+          "request": {
+            "method": "POST",
+            "header": [ 
+              { "key": "Authorization", "value": "Bearer {{access_token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": { "raw": "http://localhost:5000/api/user/upload-avatar", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "user", "upload-avatar"] },
+            "description": "Upload a profile picture. Select an image file (max 5MB) for the avatar field."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "Send Anonymous Message",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"This is an anonymous message!\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/messages/testuser", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "messages", "testuser"] },
+            "description": "Send an anonymous message to a user by their username. Replace 'testuser' with the actual username."
+          }
+        },
+        {
+          "name": "Get My Messages",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{access_token}}" } ],
+            "url": { "raw": "http://localhost:5000/api/messages/my", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "messages", "my"] }
+          }
+        },
+        {
+          "name": "Delete Message",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{access_token}}" } ],
+            "url": { "raw": "http://localhost:5000/api/messages/:id", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "messages", ":id"] }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "access_token", "value": "" },
+    { "key": "refresh_token", "value": "" }
+  ]
+}
